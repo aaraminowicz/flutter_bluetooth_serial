@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.util.UUID;
 import java.util.Arrays;
 
+import android.util.Log;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -13,6 +14,7 @@ import android.bluetooth.BluetoothSocket;
 /// Universal Bluetooth serial connection class (for Java)
 public abstract class BluetoothConnection
 {
+    private static final String TAG = "FlutterBluePlugin";
     protected static final UUID DEFAULT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     protected BluetoothAdapter bluetoothAdapter;
@@ -45,6 +47,8 @@ public abstract class BluetoothConnection
         if (device == null) {
             throw new IOException("device not found");
         }
+
+        Log.d(TAG, "UUID = " + uuid.toString());
 
         BluetoothSocket socket = device.createRfcommSocketToServiceRecord(uuid); // @TODO . introduce ConnectionMethod
         if (socket == null) {
